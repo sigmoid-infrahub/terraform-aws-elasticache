@@ -1,7 +1,9 @@
 {
-    "resourceSpecId": "22222222-2222-4222-8222-222222222222",
+    "resourceSpecId": "3f2c6e74-0b8a-4a6f-9a5e-7c5e2e2a1b11",
     "stableId": "main-redis",
     "displayName": "Main Redis Cluster",
+    "category": "database",
+    "iconUrl": "https://cdn.sigmoid.us/icons/aws/full-size/svg/database/elasticache.svg",
     "resourceType": "cache.elasticache",
     "vpcDependency": "required",
     "status": "draft",
