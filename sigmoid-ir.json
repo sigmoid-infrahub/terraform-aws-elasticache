@@ -13,6 +13,11 @@
         "engine_version": "7.1",
         "node_type": "cache.r6g.large",
         "num_cache_nodes": 2,
+        "vpc_id": { "ref": "main-vpc.id", "required": true },
+        "subnet_ids": [
+            { "ref": "private-subnet-1.id", "required": true },
+            { "ref": "private-subnet-2.id", "required": true }
+        ],
         "subnet_group_name": { "ref": "cache-subnet-group.name", "required": true },
         "security_group_ids": [
             { "ref": "redis-sg.id", "required": true }
@@ -35,6 +40,8 @@
         { "name": "engine_version", "type": "string", "required": false },
         { "name": "node_type", "type": "string", "required": true },
         { "name": "num_cache_nodes", "type": "number", "required": false, "default": 1 },
+        { "name": "vpc_id", "type": "string", "required": true, "description": "VPC ID where the ElastiCache cluster will be created" },
+        { "name": "subnet_ids", "type": "array", "required": true, "description": "List of subnet IDs for the ElastiCache cluster" },
         { "name": "subnet_group_name", "type": "string", "required": true },
         { "name": "security_group_ids", "type": "array", "required": false },
         { "name": "parameter_group_name", "type": "string", "required": false },
@@ -55,7 +62,8 @@
     "position": { "x": 500, "y": 300 },
     "terraform": {
         "module": {
-            "source": "../../terraform-modules/terraform-aws-elasticache"
+            "source": "github.com/sigmoid-hq/terraform-aws-elasticache",
+            "ref": "main"
         }
     }
 }
