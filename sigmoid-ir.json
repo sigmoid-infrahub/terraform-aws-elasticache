@@ -13,5 +13,18 @@
             "source": "github.com/sigmoid-hq/terraform-aws-elasticache",
             "ref": "main"
         }
+    },
+    "pricing": {
+        "awsPricingLookup": {
+            "serviceCode": "AmazonElastiCache",
+            "unit": "hourly",
+            "quantityProperties": ["num_cache_nodes", "replica_count"],
+            "quantityDefault": 1,
+            "filters": [
+                { "field": "location", "value": "${location}" },
+                { "field": "instanceType", "propertyKeys": ["node_type", "instance_type"] },
+                { "field": "cacheEngine", "propertyKey": "engine", "defaultValue": "Redis", "required": false }
+            ]
+        }
     }
 }
