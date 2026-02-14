@@ -25,6 +25,29 @@
                 { "field": "instanceType", "propertyKeys": ["node_type", "instance_type"] },
                 { "field": "cacheEngine", "propertyKey": "engine", "defaultValue": "Redis", "required": false }
             ]
+        },
+        "usageProfiles": {
+            "default": "medium",
+            "low": {
+                "num_cache_nodes": 1,
+                "replica_count": 1,
+                "count": 1
+            },
+            "medium": {
+                "num_cache_nodes": 2,
+                "replica_count": 2,
+                "count": 2
+            },
+            "high": {
+                "num_cache_nodes": 4,
+                "replica_count": 4,
+                "count": 4
+            },
+            "xhigh": {
+                "num_cache_nodes": 8,
+                "replica_count": 8,
+                "count": 8
+            }
         }
     }
 }
