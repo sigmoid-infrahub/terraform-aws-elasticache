@@ -49,5 +49,11 @@
                 "count": 8
             }
         }
+    },
+    "easy": {
+        "alias": "Database",
+        "group": "data-database",
+        "priority": 40,
+        "allowedProperties": ["engine", "node_type", "num_cache_nodes", "replica_count", "count"]
     }
 }
