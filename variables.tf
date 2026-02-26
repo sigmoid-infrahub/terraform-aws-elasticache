@@ -28,6 +28,19 @@ variable "num_cache_nodes" {
 variable "subnet_group_name" {
   type        = string
   description = "Subnet group name"
+  default     = null
+}
+
+variable "create_subnet_group" {
+  type        = bool
+  description = "Whether to create subnet group"
+  default     = true
+}
+
+variable "subnet_ids" {
+  type        = list(string)
+  description = "Subnet IDs for subnet group"
+  default     = []
 }
 
 variable "security_group_ids" {
@@ -40,6 +53,45 @@ variable "parameter_group_name" {
   type        = string
   description = "Parameter group name"
   default     = null
+}
+
+variable "create_parameter_group" {
+  type        = bool
+  description = "Whether to create parameter group"
+  default     = false
+}
+
+variable "parameter_group_family" {
+  type        = string
+  description = "ElastiCache parameter group family"
+  default     = null
+}
+
+variable "parameter_group_parameters" {
+  type = list(object({
+    name  = string
+    value = string
+  }))
+  description = "Parameter group parameters"
+  default     = []
+}
+
+variable "create_security_group" {
+  type        = bool
+  description = "Whether to create security group"
+  default     = false
+}
+
+variable "vpc_id" {
+  type        = string
+  description = "VPC ID for security group"
+  default     = null
+}
+
+variable "security_group_ingress_cidr_blocks" {
+  type        = list(string)
+  description = "Ingress CIDR blocks for security group"
+  default     = ["10.0.0.0/8"]
 }
 
 variable "port" {
