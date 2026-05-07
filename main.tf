@@ -52,6 +52,16 @@ resource "aws_security_group" "this" {
   tags = local.resolved_tags
 }
 
+resource "aws_cloudwatch_log_group" "slow_log" {
+  count = var.log_delivery_enabled ? 1 : 0
+
+  name              = "/aws/elasticache/${var.cluster_id}/slow-log"
+  retention_in_days = var.log_retention_in_days
+  kms_key_id        = var.log_kms_key_id != "" ? var.log_kms_key_id : null
+
+  tags = local.resolved_tags
+}
+
 resource "aws_elasticache_replication_group" "this" {
   replication_group_id = var.cluster_id
   description          = "sigmoid-redis"
@@ -74,7 +84,18 @@ resource "aws_elasticache_replication_group" "this" {
 
   at_rest_encryption_enabled = var.at_rest_encryption_enabled
   transit_encryption_enabled = var.transit_encryption_enabled
-  auth_token                 = var.auth_token
+  auth_token                 = var.auth_token != "" ? var.auth_token : null
+  kms_key_id                 = var.kms_key_id != "" ? var.kms_key_id : null
+
+  dynamic "log_delivery_configuration" {
+    for_each = var.log_delivery_enabled ? [aws_cloudwatch_log_group.slow_log[0].arn] : []
+    content {
+      destination      = log_delivery_configuration.value
+      destination_type = "cloudwatch-logs"
+      log_format       = "json"
+      log_type         = "slow-log"
+    }
+  }
 
   apply_immediately = var.apply_immediately
 

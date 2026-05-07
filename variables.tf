@@ -103,7 +103,7 @@ variable "port" {
 variable "automatic_failover_enabled" {
   type        = bool
   description = "Automatic failover"
-  default     = false
+  default     = true
 }
 
 variable "multi_az_enabled" {
@@ -115,7 +115,7 @@ variable "multi_az_enabled" {
 variable "snapshot_retention_limit" {
   type        = number
   description = "Snapshot retention limit"
-  default     = 0
+  default     = 7
 }
 
 variable "snapshot_window" {
@@ -146,7 +146,31 @@ variable "auth_token" {
   type        = string
   description = "Auth token"
   sensitive   = true
-  default     = null
+  default     = ""
+}
+
+variable "kms_key_id" {
+  type        = string
+  description = "KMS key ID for at-rest encryption. Empty string uses the AWS managed key"
+  default     = ""
+}
+
+variable "log_delivery_enabled" {
+  type        = bool
+  description = "Enable CloudWatch slow log delivery"
+  default     = true
+}
+
+variable "log_retention_in_days" {
+  type        = number
+  description = "CloudWatch log group retention in days"
+  default     = 30
+}
+
+variable "log_kms_key_id" {
+  type        = string
+  description = "KMS key ID for CloudWatch log group encryption. Empty string disables explicit log group KMS encryption"
+  default     = ""
 }
 
 variable "apply_immediately" {
